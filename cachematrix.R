@@ -5,12 +5,15 @@
 ## $getsolve, $setsolve - retrieve and update cache
 
 makeCacheMatrix <- function(x = matrix()) {
+        ## s stores inverse matrix
         s <- NULL
+        ## Matrix itself
         set <- function(y) {
                 x <<- y
                 s <<- NULL
         }
         get <- function() x
+        ## Inverse cache
         setsolve <- function(solve) s <<- solve
         getsolve <- function() s
 
@@ -21,6 +24,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Finds inverse matrix and stores result in cache
+## ... stands for other arguments to pass in solve()
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
@@ -33,6 +37,7 @@ cacheSolve <- function(x, ...) {
         }
         ## No cache found - find inverse and save it
         data <- x$get()
+        ## Passing additional arguments inside solve()
         s <- solve(data, ...)
         x$setsolve(s)
         s
